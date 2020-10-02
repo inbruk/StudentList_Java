@@ -8,9 +8,15 @@ public class StudentStorage {
     }
 
     public void addStudent(String data) {
-        String[] components = data.split("\\s+");
-        String name = components[0] + " " + components[1];
-        storage.put(name, new Student(name, components[3], components[2]));
+        try
+        {
+            String[] components = data.split("\\s+");
+            String name = components[0] + " " + components[1];
+            storage.put(name, new Student(name, components[3], components[2]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("In addStudent() array components[] is out of bound: " + e);
+            System.out.println("addStudent() declined because of exception !");
+        }
     }
 
     public void listStudent() {
@@ -18,11 +24,24 @@ public class StudentStorage {
     }
 
     public void removeStudent(String name) {
-        storage.remove(name);
+        try
+        {
+            storage.remove(name);
+        } catch (NullPointerException  e) {
+            System.err.println("In removeStudent() parameter name is null: " + e);
+            System.out.println("removeStudent() declined because of exception !");
+        }
     }
 
     public Student getStudentByName(String name) {
-        return storage.get(name);
+        try
+        {
+            return storage.get(name);
+        } catch (NullPointerException  e) {
+            System.err.println("In getStudentByName() parameter name is null: " + e);
+            System.out.println("getStudentByName() declined because of exception !");
+            return null;
+        }
     }
 
     public int getCount() {
